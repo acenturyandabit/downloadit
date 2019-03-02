@@ -1,0 +1,143 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script src="queryLoader.js"></script>
+    <script>
+      function show_about() {
+        document.body.querySelector(".downloadscreen").style.display = "none";
+        document.body.querySelector(".about").style.display = "block";
+      }
+      var pbwidth = 0;
+      var todownload;
+      var ql = new _queryLoader({
+        documentQueryKeyword: "download",
+        loaders: [
+          {
+            f: docName => {
+              document.body.querySelector(".downloadscreen").style.display =
+                "block";
+              document.body.querySelector(".downloadscreen>h1").innerText =
+                "Click here to download " + docName + "!";
+                todownload=docName;
+              pbwidth = 0;
+              document.body
+                .querySelector(".downloadscreen>button")
+                .addEventListener("click", function() {
+                  setInterval(progress_bar, 100);
+                });
+            }
+          }
+        ],
+        blank: function() {
+          show_about();
+        }
+      });
+      function progress_bar() {
+        if (pbwidth < 100) {
+          pbwidth += 10;
+          document.querySelector(".progressBar>div").style.width = pbwidth + "%";
+        } else {
+            document.querySelector(".completed>h1").innerText="Congratulations! You now have " +  todownload +"!";
+          document.querySelector(".completed").style.display = "block";
+        }
+      }
+      document.addEventListener("DOMContentLoaded", function() {
+        //reload event handler
+        document.body
+          .querySelector(".more")
+          .addEventListener("click", function() {
+            window.location.href = window.location.href;
+          });
+        document.body
+          .querySelector(".abt")
+          .addEventListener("click", function() {
+            show_about();
+          });
+        document.body
+          .querySelector(".abt")
+          .addEventListener("click", function() {
+            show_about();
+          });
+        //about this
+        document.body
+          .querySelector(".about button")
+          .addEventListener("click", function() {
+            document.body.querySelector(".linkdone>input").value =
+              window.location.href.split("?")[0] +
+              "?download=" +
+              document.body.querySelector(".about>input").value;
+            document.body.querySelector(".linkdone").style.display = "block";
+          });
+      });
+    </script>
+    <style>
+      body > div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: fit-content;
+        transform: translateY(-50%) translateX(-50%);
+      }
+      * {
+        text-align: center;
+      }
+      .progressBar {
+        width: 100%;
+        background-color: grey;
+      }
+
+      .progressBar > div {
+        width: 1%;
+        height: 30px;
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<div class="preparationcontainer" style="display:none">
+        <h1>Hold on, we're preparing your "stuff"...</h1>
+    </div>-->
+    <div class="downloadscreen" style="display:none">
+      <h1>
+        Click here to download "stuff"!
+      </h1>
+      <button>
+        Download now!
+      </button>
+      <div class="progressbar">
+        <div></div>
+      </div>
+      <div class="completed" style="display:none">
+        <h1>Congratulations! You now have some "stuff!"</h1>
+        <button class="more">Click here to get more</button>
+        <button class="abt">About this</button>
+      </div>
+    </div>
+    <div class="about" style="display:none">
+      <h1>Ever wish you could just download something important?</h1>
+      <h2>Now you can!</h2>
+      <p>
+        With new digital-syntactical representative-amalgamation techinques, you
+        can download abstract concepts whenever you want. Share the love with
+        your friends too!
+      </p>
+      <h2>I want to download...</h2>
+      <input />
+      <button>Generate download</button>
+      <br />
+      <p style="display:none" class="linkdone">
+        Alrighty! Just copy and share this link.<input />
+      </p>
+      <p>
+        Disclaimer: the site owner takes no responsibility for any psychological
+        or emotional distress which may arise from using this site. No returns
+        or refunds.
+      </p>
+    </div>
+  </body>
+</html>
