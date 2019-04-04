@@ -65,7 +65,7 @@
           });
         //about this
         document.body
-          .querySelector(".about button")
+          .querySelector(".about>button")
           .addEventListener("click", function() {
             document.body.querySelector(".linkdone>input").value =
               window.location.href.split("?")[0] +
@@ -73,6 +73,10 @@
               document.body.querySelector(".about>input").value;
             document.body.querySelector(".linkdone").style.display = "block";
           });
+        document.body.querySelector(".linkdone>button").addEventListener("click",()=>{
+          document.body.querySelector(".about>input").select();
+          document.execCommand("copy");
+        })
       });
     </script>
     <style>
@@ -132,6 +136,7 @@
       <br />
       <p style="display:none" class="linkdone">
         Alrighty! Just copy and share this link.<input />
+        <button>Copy to clipboard</button>
       </p>
       <p>
         Disclaimer: the site owner takes no responsibility for any psychological
